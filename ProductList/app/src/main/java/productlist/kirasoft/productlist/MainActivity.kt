@@ -5,12 +5,13 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.ListView
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
-import productlist.kirasoft.productlist.adapter.AdAdapter
-import productlist.kirasoft.productlist.model.Ad
+import productlist.kirasoft.productlist.adapter.ProductAdapter
+import productlist.kirasoft.productlist.model.Ads
 import productlist.kirasoft.productlist.network.AdHttpInterface
 import productlist.kirasoft.productlist.network.AdRetrofit
-import java.util.*
+import retrofit2.Call
+import retrofit2.Response
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,33 +25,28 @@ class MainActivity : AppCompatActivity() {
 
         list = findViewById(R.id.list) as ListView
 
-        try {
-            val adId = 136
-            val password = "OVUJ1DJN"
-            val siteId = 4288
-            val deviceId = 4230
-            val sessionId = "techtestsession"
-            val totalCampaignsRequested = 10
-
-
+         try {
             val retrofit = AdRetrofit().createRetrofitService(AdHttpInterface::class.java)
+            val adcall = retrofit.adStream()
 
+             doAsync {
+                 adcall.enqueue(object : retrofit2.Callback<Ads> {
+                     override fun onFailure(call: Call<Ads>, t: Throwable?) {
+                         if (t != null) Log.e(TAG, "failed ad call", t)
+                     }
 
-            val adcall = retrofit.adStream(adId, password = password, siteId = siteId,
-                    deviceId = deviceId, sessionId = sessionId, totalCampaignsRequested = totalCampaignsRequested)
+                     override fun onResponse(call: Call<Ads>, response: Response<Ads>?) {
+                         Log.d(TAG, "I got a response: " + response?.body().toString())
+                         val adAdapter = ProductAdapter(this@MainActivity, ads = response!!.body().ad!!.toList())
 
+                         adAdapter.notifyDataSetChanged()
+                         list!!.adapter = adAdapter
 
-            doAsync {
-               val adresponse = adcall.execute().body()
-                val adAdapter = AdAdapter(this@MainActivity, adresponse!!.ads!!.ads!! as ArrayList<Ad>))
-                uiThread {
-                    adAdapter.notifyDataSetChanged()
-                    list!!.adapter = adAdapter
-                }
-            }
+                     }
 
+                 })
 
-
+             }
         } catch (e: Exception) {
             Log.e(TAG, "error", e)
         }

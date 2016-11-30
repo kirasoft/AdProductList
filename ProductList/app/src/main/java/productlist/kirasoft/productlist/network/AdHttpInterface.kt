@@ -1,9 +1,8 @@
 package productlist.kirasoft.productlist.network
 
-import productlist.kirasoft.productlist.model.AdResponse
+import productlist.kirasoft.productlist.model.Ads
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Path
 
 
 /**
@@ -11,11 +10,10 @@ import retrofit2.http.Path
  */
 interface AdHttpInterface {
 
-    @GET("http://ads.appia.com/getAds?id=adId}&password={password}&siteId={siteId}&" +
-            "deviceId={deviceId}&sessionId={sessionId}&" +
-            "totalCampaignsRequested={totalCampaignsRequested}&lname=Justin")
-    fun adStream(@Path("id") adId: Int, @Path("siteId") siteId: Int, @Path("deviceId") deviceId: Int,
-                 @Path("password") password: String, @Path("sessionId") sessionId: String,
-                 @Path("totalCampaignsRequested") totalCampaignsRequested: Int): Call<AdResponse>
+
+    //http://ads.appia.com/getAds?id=236&amp;password=OVUJ1DJN&amp;siteId=4288&amp;deviceId=4230&amp;sessionId=techtestsession&amp;totalCampaignsRequested=10
+
+    @GET("getAds?id=236&password=OVUJ1DJN&siteId=4288&deviceId=4230&sessionId=techtestsession&totalCampaignsRequested=10&lname=Justin")
+    fun adStream(): Call<Ads>
 
 }

@@ -1,4 +1,4 @@
-package productlist.kirasoft.productlist.view
+package productlist.kirasoft.productlist.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -12,13 +12,12 @@ import com.bumptech.glide.Glide
 import org.jetbrains.anko.onClick
 import productlist.kirasoft.productlist.ProductActivity
 import productlist.kirasoft.productlist.R
-import productlist.kirasoft.productlist.model.Ad
-import java.util.*
+import productlist.kirasoft.productlist.model.ad
 
 /**
  * Created by dakotajustin on 11/29/16.
  */
-class ProductListView(context: Context, ads: ArrayList<Ad>) : ArrayAdapter<Ad>(context,0, ads) {
+class ProductAdapter(context: Context, ads: List<ad>) : ArrayAdapter<ad>(context,0, ads) {
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         var convertView = view
@@ -49,7 +48,7 @@ class ProductListView(context: Context, ads: ArrayList<Ad>) : ArrayAdapter<Ad>(c
     }
 
 
-    fun populateViewHolder(viewHolder: ViewHolder, ad: Ad) {
+    fun populateViewHolder(viewHolder: ViewHolder, ad: ad) {
         viewHolder.adNameTextView.setText(ad.productName)
         viewHolder.adProductRatingTextView.setText(ad.rating)
 

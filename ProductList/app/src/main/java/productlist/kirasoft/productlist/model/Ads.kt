@@ -1,22 +1,29 @@
 package productlist.kirasoft.productlist.model
 
+import org.simpleframework.xml.Element
+import org.simpleframework.xml.ElementList
+import org.simpleframework.xml.Root
+
 /**
  * Created by dakotajustin on 11/29/16.
  */
-class Ads {
-    var totalCampaignsRequested: String? = null
 
-    var ads: Array<Ad>? = null
+@Root(name= "ads")
+public class Ads {
 
-    var xmlns: String? = null
+    @field:ElementList(inline = true, entry = "ad") var ad: List<ad>? = null
 
-    var serverId: String? = null
+    @field:Element(required = false) var xmlns: String? = null
 
-    var responseTime: String? = null
+    @field:Element var totalCampaignsRequested: String? = null
 
-    var version: String? = null
+    @field:Element var serverId: String? = null
+
+    @field: Element var responseTime: String? = null
+
+    @field: Element var version: String? = null
 
     override fun toString(): String {
-        return "ClassPojo [totalCampaignsRequested = $totalCampaignsRequested, ad = $ads, xmlns = $xmlns, serverId = $serverId, responseTime = $responseTime, version = $version]"
+        return "ClassPojo [ad = $ad]"
     }
 }
