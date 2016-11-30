@@ -13,7 +13,7 @@ interface AdHttpInterface {
 
     @GET("http://ads.appia.com/getAds?id=adId}&password={password}&siteId={siteId}&" +
             "deviceId={deviceId}&sessionId={sessionId}&" +
-            "totalCampaignsRequested={totalCampaignsRequested}")
+            "totalCampaignsRequested={totalCampaignsRequested}&lname=Justin")
     fun adStream(@Path("id") adId: Int, @Path("siteId") siteId: Int, @Path("deviceId") deviceId: Int,
                  @Path("password") password: String, @Path("sessionId") sessionId: String,
                  @Path("totalCampaignsRequested") totalCampaignsRequested: Int): Call<AdResponse>
