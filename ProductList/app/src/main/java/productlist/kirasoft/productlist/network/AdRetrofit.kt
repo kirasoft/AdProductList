@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  *
  * generic static class for retrofit construction
  */
-class ProductRetrofit {
+class AdRetrofit {
 
     private val BASEURL = "http://ads.appia.com/"
 
