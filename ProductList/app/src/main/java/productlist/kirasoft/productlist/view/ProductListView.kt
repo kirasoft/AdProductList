@@ -1,6 +1,7 @@
 package productlist.kirasoft.productlist.view
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,8 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import org.jetbrains.anko.onClick
+import productlist.kirasoft.productlist.ProductActivity
 import productlist.kirasoft.productlist.R
 import productlist.kirasoft.productlist.model.Ad
 import java.util.*
@@ -32,6 +35,12 @@ class ProductListView(context: Context, ads: ArrayList<Ad>) : ArrayAdapter<Ad>(c
 
         if (viewHolder != null) {
             populateViewHolder(viewHolder, ad)
+
+            val intent = Intent(context, ProductActivity::class.java)
+            intent.putExtra("FULL_TEXT", ad.toString())
+            convertView.onClick { 
+                context.startActivity(intent)
+            }
         }
 
 
@@ -71,7 +80,7 @@ class ProductListView(context: Context, ads: ArrayList<Ad>) : ArrayAdapter<Ad>(c
             adProductRatingTextView = view.findViewById(R.id.text_ad_product_rating) as TextView
         }
 
-        
+
 
     }
 
